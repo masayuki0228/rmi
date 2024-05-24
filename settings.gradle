@@ -1,0 +1,5 @@
+rootProject.name = 'RMI'
+include 'Server'
+include 'Common'
+include 'Client'
+
