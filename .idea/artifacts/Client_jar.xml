@@ -3,7 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Client_jar</output-path>
     <root id="archive" name="Client.jar">
       <element id="module-output" name="RMI.Client.main" />
-      <element id="module-output" name="RMI.Server.main" />
       <element id="module-output" name="RMI.Common.main" />
     </root>
   </artifact>

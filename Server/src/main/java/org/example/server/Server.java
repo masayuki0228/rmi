@@ -4,14 +4,13 @@ import org.example.common.Condition;
 import org.example.common.Log;
 import org.example.common.LogAPI;
 
-import java.rmi.Naming;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
 
-public class Server implements LogAPI {
-    public Server() {
+public class Server extends UnicastRemoteObject implements LogAPI {
+    protected Server() throws RemoteException {
     }
 
     @Override
@@ -30,10 +29,10 @@ public class Server implements LogAPI {
 
     public static void main(String args[]) {
         try {
-            Server server = new Server();
-            LogAPI stub = (LogAPI) UnicastRemoteObject.exportObject(server, 0);
-            LocateRegistry.createRegistry(1099);
-            Naming.rebind("//localhost/get", stub);
+            var server = new Server();
+            var registry = LocateRegistry.createRegistry(1099);
+            registry.bind("get", server); // localhostだと何故か失敗する
+//            Naming.bind("//localhost/get", server); // rebindでも可
 
             System.out.println("server start");
         } catch (Exception e) {
