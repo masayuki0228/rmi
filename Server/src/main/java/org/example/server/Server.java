@@ -11,10 +11,11 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Server extends UnicastRemoteObject implements LogAPI {
     protected Server() throws RemoteException {
+        super();
     }
 
     @Override
-    public Log get(Condition condition) throws RemoteException {
+    public Log get(Condition condition) {
         var os = condition.getOS();
         if (os == "mac") {
             return new LogImpl(os);
@@ -32,7 +33,8 @@ public class Server extends UnicastRemoteObject implements LogAPI {
             var server = new Server();
             var registry = LocateRegistry.createRegistry(1099);
             registry.bind("get", server); // localhostだと何故か失敗する
-//            Naming.bind("//localhost/get", server); // rebindでも可
+
+//            Naming.bind("//localhost/get", server); こちらでも可
 
             System.out.println("server start");
         } catch (Exception e) {
